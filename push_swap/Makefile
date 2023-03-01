@@ -13,6 +13,8 @@
 #_____VARIABLES_____#
 
 NAME = push_swap.a
+CC = gcc
+CFLAGS = -Wall -Werror -Wextra
 
 #_____COLORS_____#
 
@@ -26,33 +28,28 @@ MAGENTA = \033[0;95m
 CYAN = \033[0;96m
 WHITE = \033[0;97m
 
+#_____OBJS_____#
+
+SRCS:=$(wildcard src/*.c)
+OBJS:=$(patsubst src/%.c,src/%.o,$(SRCS))
+
 #_____PROGRAM_____#
 
 all: $(NAME)
-	@echo "$(GREEN)Compilando programa...$(DEF_COLOR)"
-	@$(CC) -g3 no_main.c *.a -o exec
-	@echo "$(GREEN)Programa compilado$(DEF_COLOR)"
 
-$(NAME):
-	@echo "$(GREEN)Compilando libft...$(DEF_COLOR)"
-	@make -C libft
-	@mv libft/libft.a libft.a
-	@echo "$(GREEN)libft compilado$(DEF_COLOR)"
-	@echo "$(GREEN)Compilando push_swap...$(DEF_COLOR)"
-	@make -C push_swap
-	@mv push_swap/push_swap.a push_swap.a
-	@echo "$(GREEN)push_swap compilado$(DEF_COLOR)"
+$(NAME): $(OBJS)
+	@ar rcs $(NAME) $(OBJS)
+
+%.o: %.c
+	@echo "$(YELLOW)Compiling: $< $(DEF_COLOR)"
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	@make -C push_swap clean
-	@make -C libft clean
+	@rm -rf $(OBJS)
 	@rm -rf exec
 
 fclean: clean
-	@make -C push_swap fclean
-	@make -C libft fclean
-	@rm -rf exec *.a
-	@clear
+	@rm -rf $(NAME)
 
 re: fclean all
 

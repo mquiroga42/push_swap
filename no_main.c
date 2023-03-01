@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/push_swap.h"
+#include "push_swap/include/push_swap.h"
 
 int	main(int argc, char **argv)
 {
-	if (is_error(argc, &argv))
+	if (is_error(argc, argv))
 		return (write(1, "error\n", 6), 0);
 	else
 		push_swap();
