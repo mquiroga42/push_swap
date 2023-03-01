@@ -14,7 +14,6 @@
 # define PUSH_SWAP_H
 
 # include <unistd.h>
-# include "../../libft/include/libft.h"
 
 int		is_error(int argc, char **argv);
 void	push_swap(void);

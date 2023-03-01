@@ -14,6 +14,10 @@
 
 NAME = push_swap.a
 
+#_____CONF_____#
+
+MAKEFLAGS += --no-print-directory
+
 #_____COLORS_____#
 
 DEF_COLOR = \033[0;39m
@@ -30,28 +34,32 @@ WHITE = \033[0;97m
 
 all: $(NAME)
 	@echo "$(GREEN)Compilando programa...$(DEF_COLOR)"
-	@$(CC) -g3 no_main.c *.a -o exec
+	@ar -x binary/push_swap.a --output=binary
+	@ar -x binary/libft.a --output=binary
+	@ar rcs program.a binary/*.o
+	@mv program.a binary/program.a
+	@$(CC) -g3 no_main.c binary/program.a -o exec
 	@echo "$(GREEN)Programa compilado$(DEF_COLOR)"
 
 $(NAME):
 	@echo "$(GREEN)Compilando libft...$(DEF_COLOR)"
 	@make -C libft
-	@mv libft/libft.a libft.a
+	@mv libft/libft.a binary/libft.a
 	@echo "$(GREEN)libft compilado$(DEF_COLOR)"
 	@echo "$(GREEN)Compilando push_swap...$(DEF_COLOR)"
 	@make -C push_swap
-	@mv push_swap/push_swap.a push_swap.a
+	@mv push_swap/push_swap.a binary/push_swap.a
 	@echo "$(GREEN)push_swap compilado$(DEF_COLOR)"
 
 clean:
 	@make -C push_swap clean
 	@make -C libft clean
-	@rm -rf exec
+	@rm -rf exec *.o binary/*.o
 
 fclean: clean
 	@make -C push_swap fclean
 	@make -C libft fclean
-	@rm -rf exec *.a
+	@rm -rf exec binary/*.a *.a
 	@clear
 
 re: fclean all

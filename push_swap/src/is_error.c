@@ -23,7 +23,6 @@ int	is_error(int argc, char **argv)
 		x = 0;
 		while (argv[1][x] != '\0')
 		{
-			write(1, &argv[1][x], 1);
 			if (!ft_isdigit(argv[1][x] + 0))
 				return (1);
 			x++;
