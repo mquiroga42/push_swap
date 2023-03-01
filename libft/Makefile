@@ -44,7 +44,7 @@ $(NAME): $(OBJS)
 
 %.o: %.c
 	@echo "$(YELLOW)Compiling: $< $(DEF_COLOR)"
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -I ./include/ -c $< -o $@
 
 clean:
 	@rm -rf $(OBJS)

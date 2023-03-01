@@ -32,24 +32,26 @@ WHITE = \033[0;97m
 
 #_____PROGRAM_____#
 
-all: $(NAME)
-	@echo "$(GREEN)Compilando programa...$(DEF_COLOR)"
-	@ar -x binary/push_swap.a --output=binary
-	@ar -x binary/libft.a --output=binary
-	@ar rcs program.a binary/*.o
-	@mv program.a binary/program.a
-	@$(CC) -g3 no_main.c binary/program.a -o exec
-	@echo "$(GREEN)Programa compilado$(DEF_COLOR)"
+all: push_swap
 
-$(NAME):
-	@echo "$(GREEN)Compilando libft...$(DEF_COLOR)"
-	@make -C libft
-	@mv libft/libft.a binary/libft.a
-	@echo "$(GREEN)libft compilado$(DEF_COLOR)"
+push_swap:
 	@echo "$(GREEN)Compilando push_swap...$(DEF_COLOR)"
 	@make -C push_swap
-	@mv push_swap/push_swap.a binary/push_swap.a
 	@echo "$(GREEN)push_swap compilado$(DEF_COLOR)"
+
+libft:
+	@echo "$(GREEN)Compilando libft...$(DEF_COLOR)"
+	@make -C libft
+	@echo "$(GREEN)libft compilado$(DEF_COLOR)"
+
+
+
+$(NAME):
+	@echo "$(GREEN)Compilando programa...$(DEF_COLOR)"
+	@$(CC) -g3 no_main.c push_swap.a -o exec
+	@echo "$(GREEN)Programa compilado$(DEF_COLOR)"
+
+
 
 clean:
 	@make -C push_swap clean

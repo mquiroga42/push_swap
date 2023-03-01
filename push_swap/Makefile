@@ -38,11 +38,13 @@ OBJS:=$(patsubst src/%.c,src/%.o,$(SRCS))
 all: $(NAME)
 
 $(NAME): $(OBJS)
+	@echo "$(YELLOW)AVISO:$(DEF_COLOR)$(BLUE)Buscando dependencia libft...$(DEF_COLOR)"
+	@mv ../libft/libft.a $(NAME)
 	@ar rcs $(NAME) $(OBJS)
 
 %.o: %.c
 	@echo "$(YELLOW)Compiling: $< $(DEF_COLOR)"
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -I ./include/ -c $< -o $@
 
 clean:
 	@rm -rf $(OBJS)

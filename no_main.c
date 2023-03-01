@@ -14,7 +14,6 @@
 
 int	main(int argc, char **argv)
 {
-	int *number;
 
 	if (is_error(argc, argv))
 		return (write(2, "error\n", 6), 0);
