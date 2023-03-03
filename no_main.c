@@ -14,10 +14,14 @@
 
 int	main(int argc, char **argv)
 {
+	t_list_ps	*bloq_a;
+	t_list_ps	*bloq_b;
 
 	if (is_error(argc, argv))
 		return (write(2, "error\n", 6), 0);
 	else
-		push_swap();
+	{
+		push_swap(&bloq_a, &bloq_b);
+	}
 	return (0);
 }

@@ -14,7 +14,7 @@
 
 NAME = push_swap.a
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = #-Wall -Werror -Wextra
 
 #_____COLORS_____#
 
