@@ -30,8 +30,16 @@ WHITE = \033[0;97m
 
 #_____OBJS_____#
 
-SRCS:=$(wildcard src/*.c)
-OBJS:=$(patsubst src/%.c,src/%.o,$(SRCS))
+SRC_DIR = src/
+SRCS := is_error.c\
+		push_swap.c
+SRCS := $(addprefix $(SRC_DIR),$(SRCS))
+
+HEADER_DIR = include/
+HEADER := push_swap.h
+HEADER := $(addprefix $(HEADER_DIR),$(HEADER))
+
+OBJS:=$(patsubst $(SRC_DIR)%.c,$(SRC_DIR)%.o,$(SRCS))
 
 #_____PROGRAM_____#
 
@@ -40,11 +48,15 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	@echo "$(YELLOW)AVISO:$(DEF_COLOR)$(BLUE)Buscando dependencia libft...$(DEF_COLOR)"
 	@mv ../libft/libft.a $(NAME)
+	@clear
+	@echo "$(GREEN)Generando librería...$(DEF_COLOR)"
+	@echo "$(YELLOW)Compilando $(WHITE) $(NAME) $(GREEN)\t✔️$(DEF_COLOR)"
 	@ar rcs $(NAME) $(OBJS)
+	@echo "$(GREEN)Librería generada$(DEF_COLOR)"
 
 %.o: %.c
-	@echo "$(YELLOW)Compiling: $< $(DEF_COLOR)"
-	@$(CC) $(CFLAGS) -I ./include/ -c $< -o $@
+	@echo "$(YELLOW)Compilando $(WHITE) $< $(GREEN)\t✔️$(DEF_COLOR)"
+	@$(CC) -c $(CFLAGS) -I $(HEADER_DIR) $< -o $@
 
 clean:
 	@rm -rf $(OBJS)
@@ -58,4 +70,4 @@ re: fclean all
 sanitize: CFLAGS += -fsanitize=address -g3
 sanitize: all
 
-.PHONY: all clean
+.PHONY: all re fclean clean
