@@ -13,6 +13,7 @@
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
+# include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include "../../libft/include/libft.h"
@@ -23,7 +24,7 @@ typedef struct s_list_ps
 	struct s_list_ps	*next;
 }						t_list_ps;
 
-int		is_error(int argc, char **argv);
+int		is_error(int argc, char **argv, t_list_ps **bloq_a);
 void	push_swap(t_list_ps **bloq_a, t_list_ps **bloq_b);
 
 #endif

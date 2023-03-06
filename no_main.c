@@ -17,7 +17,7 @@ int	main(int argc, char **argv)
 	t_list_ps	*bloq_a;
 	t_list_ps	*bloq_b;
 
-	if (is_error(argc, argv))
+	if (is_error(argc, argv, &bloq_a))
 		return (write(2, "error\n", 6), 0);
 	else
 	{

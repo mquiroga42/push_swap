@@ -12,20 +12,27 @@
 
 #include "../include/push_swap.h"
 
-int	is_error(int argc, char **argv)
+int	is_error(int argc, char **argv, t_list_ps **bloq_a)
 {
+	int y;
 	int	x;
+	int status_minus;
 
-	if (argc < 2)
+	if (argc == 1)
 		return (1);
-	else if (argc == 2)
+	else
 	{
-		x = 0;
-		while (argv[1][x] != '\0')
+		y = 1;
+		while (y < argc)
 		{
-			if (!ft_isdigit(argv[1][x] + 0))
-				return (1);
-			x++;
+			x = 0;
+			while (argv[y][x] != '\0')
+			{
+				if (!ft_isdigit(argv[y][x]))
+					return (1);
+				x++;
+			}
+			y++;
 		}
 	}
 	return (0);
