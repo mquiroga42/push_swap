@@ -30,7 +30,7 @@ static int gen_multilineal_list(int argc, char **argv, t_list **bloq_a)
         {
             number = ft_atoi(argv[y]);
             if (!number)
-                return (0);
+                return (1);
         }
         if (!(*bloq_a))
             (*bloq_a) = ft_lstnew((void *)number);
@@ -47,9 +47,9 @@ int	is_error(int argc, char **argv, t_list **bloq_a)
     if (argc < 2)
         return (1);
     else if (argc == 2)
-        gen_lineal_list(argv, &(*bloq_a));
+        return (gen_lineal_list(argv, &(*bloq_a)));
     else
-        return (gen_multilineal_list(argc, argv, &(*bloq_a)), 0);
+        return (gen_multilineal_list(argc, argv, &(*bloq_a)));
     return (0);
 }
 /*
