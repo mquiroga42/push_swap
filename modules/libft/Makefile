@@ -1,20 +1,24 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    makefile                                           :+:      :+:    :+:    #
+#    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: cyberoot <cyberoot@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/10/18 12:33:56 by cyberoot          #+#    #+#              #
-#    Updated: 2023/01/23 08:54:08 by cyberoot         ###   ########.fr        #
+#    Created: 2022/10/18 12:34:02 by cyberoot          #+#    #+#              #
+#    Updated: 2022/11/12 12:12:07 by cyberoot         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #_____VARIABLES_____#
 
-NAME = push_swap.a
+NAME = libft.a
 CC = gcc
-CFLAGS = #-Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra
+
+#_____CONF_____#
+
+MAKEFLAGS += --no-print-directory
 
 #_____COLORS_____#
 
@@ -31,23 +35,41 @@ WHITE = \033[0;97m
 #_____OBJS_____#
 
 SRC_DIR = src/
-SRCS := is_error.c\
-		push_swap.c
+
+SRCS := ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c \
+	ft_isascii.c ft_isdigit.c ft_isprint.c ft_itoa.c \
+	ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memmove.c \
+	ft_memset.c ft_putchar_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_putstr_fd.c \
+	ft_split.c ft_strchr.c ft_strdup.c ft_strjoin.c ft_strlcat.c ft_strlcpy.c \
+	ft_strlen.c ft_strmapi.c ft_strncmp.c ft_strnstr.c ft_strrchr.c ft_strtrim.c \
+	ft_tolower.c ft_toupper.c ft_substr.c ft_striteri.c ft_uitoa.c
 SRCS := $(addprefix $(SRC_DIR),$(SRCS))
 
+SRCS_BONUS := ft_lstadd_front.c ft_lstadd_back.c \
+	ft_lstclear.c ft_lstdelone.c ft_lstlast.c \
+	ft_lstnew.c ft_lstsize.c ft_lstiter.c ft_lstmap.c
+SRCS_BONUS := $(addprefix $(SRC_DIR),$(SRCS_BONUS))
+
 HEADER_DIR = include/
-HEADER := push_swap.h
+
+HEADER := libft.h
 HEADER := $(addprefix $(HEADER_DIR),$(HEADER))
 
 OBJS:=$(patsubst $(SRC_DIR)%.c,$(SRC_DIR)%.o,$(SRCS))
+OBJS_BONUS:=$(patsubst $(SRC_DIR)%.c,$(SRC_DIR)%.o,$(SRCS_BONUS))
 
 #_____PROGRAM_____#
 
 all: $(NAME)
 
+bonus: $(NAME) $(OBJS_BONUS)
+	@clear
+	@echo "$(GREEN)Generando librería...$(DEF_COLOR)"
+	@echo "$(GREEN)Compilando $(WHITE) $(NAME) $(GREEN)\t✔️$(DEF_COLOR)"
+	@ar rcs $(NAME) $(OBJS) $(OBJS_BONUS)
+	@echo "$(GREEN)Librería generada$(DEF_COLOR)"
+
 $(NAME): $(OBJS)
-	@echo "$(YELLOW)AVISO:$(DEF_COLOR)$(BLUE)Buscando dependencia libft...$(DEF_COLOR)"
-	@mv ../libft/libft.a $(NAME)
 	@clear
 	@echo "$(GREEN)Generando librería...$(DEF_COLOR)"
 	@echo "$(YELLOW)Compilando $(WHITE) $(NAME) $(GREEN)\t✔️$(DEF_COLOR)"
@@ -56,18 +78,19 @@ $(NAME): $(OBJS)
 
 %.o: %.c
 	@echo "$(YELLOW)Compilando $(WHITE) $< $(GREEN)\t✔️$(DEF_COLOR)"
-	@$(CC) -c $(CFLAGS) -I $(HEADER_DIR) $< -o $@
-
+	@$(CC) -g3 -c $(CFLAGS) -I $(HEADER_DIR) $< -o $@
 clean:
 	@rm -rf $(OBJS)
-	@rm -rf exec
 
 fclean: clean
 	@rm -rf $(NAME)
 
 re: fclean all
 
-sanitize: CFLAGS += -fsanitize=address -g3
-sanitize: all
+debug: CFLAGS += -g3
+debug: all bonus
 
-.PHONY: all re fclean clean
+sanitize: CFLAGS += -fsanitize=address -g3
+sanitize: all bonus
+
+.PHONY: all re bonus fclean clean

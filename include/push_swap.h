@@ -16,15 +16,9 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
-# include "../../libft/include/libft.h"
+# include "../modules/libft/include/libft.h"
 
-typedef struct s_list_ps
-{
-	void				*content;
-	struct s_list_ps	*next;
-}						t_list_ps;
-
-int		is_error(int argc, char **argv, t_list_ps **bloq_a);
-void	push_swap(t_list_ps **bloq_a, t_list_ps **bloq_b);
+int		is_error(int argc, char **argv, t_list **bloq_a);
+void	push_swap(t_list **bloq_a, t_list **bloq_b);
 
 #endif

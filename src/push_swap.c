@@ -12,12 +12,12 @@
 
 #include "../include/push_swap.h"
 
-void	sa(t_list_ps **bloq_a, t_list_ps **bloq_b)
+void	sa(t_list **bloq_a, t_list **bloq_b)
 {
 
 }
 
-void	push_swap(t_list_ps **bloq_a, t_list_ps **bloq_b)
+void	push_swap(t_list **bloq_a, t_list **bloq_b)
 {
 
 }

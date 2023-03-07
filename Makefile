@@ -13,10 +13,8 @@
 #_____VARIABLES_____#
 
 NAME = push_swap.a
-
-#_____CONF_____#
-
-MAKEFLAGS += --no-print-directory
+CC = gcc
+CFLAGS = #-Wall -Werror -Wextra
 
 #_____COLORS_____#
 
@@ -30,36 +28,58 @@ MAGENTA = \033[0;95m
 CYAN = \033[0;96m
 WHITE = \033[0;97m
 
+#_____OBJS_____#
+
+SRC_DIR = src/
+SRCS := is_error.c\
+		push_swap.c
+SRCS := $(addprefix $(SRC_DIR),$(SRCS))
+
+HEADER_DIR = include/
+HEADER := push_swap.h
+HEADER := $(addprefix $(HEADER_DIR),$(HEADER))
+
+OBJS:=$(patsubst $(SRC_DIR)%.c,$(SRC_DIR)%.o,$(SRCS))
+
 #_____PROGRAM_____#
 
 all: $(NAME)
 
-$(NAME): libft push_swap
-	@echo "$(GREEN)Compilando programa...$(DEF_COLOR)"
+$(NAME): libft $(OBJS)
+	@mv modules/libft/libft.a $(NAME)
+	@clear
+	@echo "$(GREEN)Generando librería...$(DEF_COLOR)"
+	@echo "$(YELLOW)Compilando $(WHITE) $(NAME) $(GREEN)\t✔️$(DEF_COLOR)"
+	@ar rcs $(NAME) $(OBJS)
+	@echo "$(GREEN)Librería generada$(DEF_COLOR)"
+
+libft: exec
+	@echo "$(GREEN) Comilando $(YELLOW)libft...$(DEF_COLOR)"
+	@make -C modules/libft bonus
+
+exec: all
+	@echo "$(GREEN)Generando programa...$(DEF_COLOR)"
 	@echo "$(YELLOW)Compilando $(WHITE) exec $(GREEN)\t✔️$(DEF_COLOR)"
-	@$(CC) -g3 no_main.c push_swap/$(NAME) -o exec
-	@echo "$(GREEN)Programa compilado$(DEF_COLOR)"
+	@ar rcs $(NAME) $(OBJS)
+	@gcc -g3 $(CFLAGS) no_main.c $(NAME) -o exec
+	@echo "$(GREEN)Programa generado$(DEF_COLOR)"
 
-push_swap:
-	@make -C push_swap
-
-libft:
-	@make -C libft
+%.o: %.c
+	@echo "$(YELLOW)Compilando $(WHITE) $< $(GREEN)\t✔️$(DEF_COLOR)"
+	@$(CC) -g3 -c $(CFLAGS) -I $(HEADER_DIR) $< -o $@
 
 clean:
-	@make -C push_swap clean
-	@make -C libft clean
-	@rm -rf exec *.o binary/*.o
+	@make -C modules/libft clean
+	@rm -rf $(OBJS)
+	@rm -rf exec
 
 fclean: clean
-	@make -C push_swap fclean
-	@make -C libft fclean
-	@rm -rf exec binary/*.a *.a
-	@clear
+	@make -C modules/libft fclean
+	@rm -rf $(NAME)
 
-re: fclean all
+re: fclean exec
 
 sanitize: CFLAGS += -fsanitize=address -g3
 sanitize: all
 
-.PHONY: all re clean push_swap libft
+.PHONY: all re fclean clean

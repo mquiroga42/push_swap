@@ -10,17 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap/include/push_swap.h"
+#include "include/push_swap.h"
 
 int	main(int argc, char **argv)
 {
-	t_list_ps	*bloq_a;
-	t_list_ps	*bloq_b;
+	t_list	*bloq_a;
+	t_list	*bloq_b;
 
 	if (is_error(argc, argv, &bloq_a))
 		return (write(2, "error\n", 6), 0);
 	else
 	{
+        printf("%d", bloq_a->next->content);
 		push_swap(&bloq_a, &bloq_b);
 	}
 	return (0);
