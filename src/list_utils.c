@@ -10,13 +10,41 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "../include/push_swap.h"
 
-t_list	*ft_lstnew(void *content)
+t_psList	*ps_lstlast(t_psList *lst)
 {
-	t_list	*response;
+	t_psList	*aux;
 
-	response = (t_list *)malloc(sizeof(t_list));
+	aux = lst;
+	while (aux)
+	{
+		if (aux->next)
+			aux = aux->next;
+		else
+			break ;
+	}
+	return (aux);
+}
+
+void	ps_lstadd_back(t_psList **lst, t_psList *new)
+{
+	t_psList	*tmp;
+
+	if (!*lst)
+		*lst = new;
+	else
+	{
+		tmp = ps_lstlast(*(lst));
+		tmp->next = new;
+	}
+}
+
+t_psList	*ps_lstnew(int content)
+{
+	t_psList	*response;
+
+	response = (t_psList *)malloc(sizeof(t_psList));
 	if (!response)
 		return (0);
 	response->content = content;

@@ -14,7 +14,7 @@
 
 NAME = libft.a
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -g3 -Wall -Werror -Wextra
 
 #_____CONF_____#
 
@@ -78,9 +78,9 @@ $(NAME): $(OBJS)
 
 %.o: %.c
 	@echo "$(YELLOW)Compilando $(WHITE) $< $(GREEN)\t✔️$(DEF_COLOR)"
-	@$(CC) -g3 -c $(CFLAGS) -I $(HEADER_DIR) $< -o $@
+	@$(CC) -c $(CFLAGS) -I $(HEADER_DIR) $< -o $@
 clean:
-	@rm -rf $(OBJS)
+	@rm -rf $(OBJS) $(OBJS_BONUS)
 
 fclean: clean
 	@rm -rf $(NAME)

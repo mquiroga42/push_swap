@@ -14,7 +14,11 @@
 
 NAME = push_swap.a
 CC = gcc
-CFLAGS = #-Wall -Werror -Wextra
+CFLAGS = -g3 #-fsanitize=address #-Wall -Werror -Wextra
+
+#_____CONF_____#
+
+MAKEFLAGS += --no-print-directory
 
 #_____COLORS_____#
 
@@ -32,7 +36,8 @@ WHITE = \033[0;97m
 
 SRC_DIR = src/
 SRCS := is_error.c\
-		push_swap.c
+		push_swap.c \
+		list_utils.c
 SRCS := $(addprefix $(SRC_DIR),$(SRCS))
 
 HEADER_DIR = include/
@@ -52,21 +57,21 @@ $(NAME): libft $(OBJS)
 	@echo "$(YELLOW)Compilando $(WHITE) $(NAME) $(GREEN)\t✔️$(DEF_COLOR)"
 	@ar rcs $(NAME) $(OBJS)
 	@echo "$(GREEN)Librería generada$(DEF_COLOR)"
+	@make exec
 
-libft: exec
+libft:
 	@echo "$(GREEN) Comilando $(YELLOW)libft...$(DEF_COLOR)"
 	@make -C modules/libft bonus
 
-exec: all
+exec:
 	@echo "$(GREEN)Generando programa...$(DEF_COLOR)"
 	@echo "$(YELLOW)Compilando $(WHITE) exec $(GREEN)\t✔️$(DEF_COLOR)"
-	@ar rcs $(NAME) $(OBJS)
 	@gcc -g3 $(CFLAGS) no_main.c $(NAME) -o exec
 	@echo "$(GREEN)Programa generado$(DEF_COLOR)"
 
 %.o: %.c
 	@echo "$(YELLOW)Compilando $(WHITE) $< $(GREEN)\t✔️$(DEF_COLOR)"
-	@$(CC) -g3 -c $(CFLAGS) -I $(HEADER_DIR) $< -o $@
+	@$(CC) -c $(CFLAGS) -I $(HEADER_DIR) $< -o $@
 
 clean:
 	@make -C modules/libft clean
@@ -77,7 +82,7 @@ fclean: clean
 	@make -C modules/libft fclean
 	@rm -rf $(NAME)
 
-re: fclean exec
+re: fclean all
 
 sanitize: CFLAGS += -fsanitize=address -g3
 sanitize: all
