@@ -12,6 +12,23 @@
 
 #include "../include/push_swap.h"
 
+int	ps_lstFindContent(t_psList *lst, int nb)
+{
+	t_psList	*aux;
+
+	aux = lst;
+	while (aux)
+	{
+		if (aux->content == nb)
+			return (1);
+		if (aux->next)
+			aux = aux->next;
+		else
+			break ;
+	}
+	return (0);
+}
+
 t_psList	*ps_lstlast(t_psList *lst)
 {
 	t_psList	*aux;

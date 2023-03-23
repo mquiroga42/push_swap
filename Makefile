@@ -53,10 +53,10 @@ all: $(NAME)
 $(NAME): libft $(OBJS)
 	@mv modules/libft/libft.a $(NAME)
 	@clear
-	@echo "$(GREEN)Generando librería...$(DEF_COLOR)"
-	@echo "$(YELLOW)Compilando $(WHITE) $(NAME) $(GREEN)\t✔️$(DEF_COLOR)"
+	@echo "$(GREEN)Generando librería...$(DEF_COLOR)" && sleep 0.5 && clear
+	@echo "$(YELLOW)Compilando $(WHITE) $(NAME) $(GREEN)\t✔️$(DEF_COLOR)" && sleep 0.5  && clear
 	@ar rcs $(NAME) $(OBJS)
-	@echo "$(GREEN)Librería generada$(DEF_COLOR)"
+	@echo "$(GREEN)Librería generada$(DEF_COLOR)" && sleep 0.5 && clear
 	@make exec
 
 libft:
@@ -64,10 +64,10 @@ libft:
 	@make -C modules/libft bonus
 
 exec:
-	@echo "$(GREEN)Generando programa...$(DEF_COLOR)"
-	@echo "$(YELLOW)Compilando $(WHITE) exec $(GREEN)\t✔️$(DEF_COLOR)"
-	@gcc -g3 $(CFLAGS) no_main.c $(NAME) -o exec
-	@echo "$(GREEN)Programa generado$(DEF_COLOR)"
+	@echo "$(GREEN)Generando programa...$(DEF_COLOR)" && sleep 0.5  && clear
+	@echo "$(YELLOW)Compilando $(WHITE) exec $(GREEN)\t✔️$(DEF_COLOR)" && sleep 0.5  && clear
+	@gcc -g3 $(CFLAGS) no_main.c $(NAME) -o push_swap
+	@echo "$(GREEN)Programa generado$(DEF_COLOR)" && sleep 0.5 && clear
 
 %.o: %.c
 	@echo "$(YELLOW)Compilando $(WHITE) $< $(GREEN)\t✔️$(DEF_COLOR)"
