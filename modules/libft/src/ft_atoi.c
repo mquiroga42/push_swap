@@ -12,9 +12,9 @@
 
 #include "../include/libft.h"
 
-int	ft_putchar(const char *str)
+static int	atoi_putchar(const char *str, int negative)
 {
-	int	response;
+	size_t	response;
 
 	response = 0;
 	while (*str >= '0' && *str <= '9')
@@ -23,7 +23,9 @@ int	ft_putchar(const char *str)
 		response += (*str - '0');
 		str++;
 	}
-	return (response);
+	if ((negative == 1 && response > 2147483647) || (negative == -1 && response > 2147483648))
+		return (0);
+	return ((int)response);
 }
 
 int	ft_atoi(const char *str)
@@ -42,6 +44,6 @@ int	ft_atoi(const char *str)
 		break ;
 	}
 	if (*str >= '0' && *str <= '9')
-		return (negative * ft_putchar(str));
+		return (negative * atoi_putchar(str, negative));
 	return (0);
 }

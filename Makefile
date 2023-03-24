@@ -75,12 +75,11 @@ exec:
 
 clean:
 	@make -C modules/libft clean
-	@rm -rf $(OBJS)
-	@rm -rf exec
+	@$(RM) $(OBJS)
 
 fclean: clean
 	@make -C modules/libft fclean
-	@rm -rf $(NAME)
+	@$(RM) $(NAME) push_swap
 
 re: fclean all
 

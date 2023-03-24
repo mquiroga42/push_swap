@@ -26,9 +26,10 @@ static int	gen_bloq_list(int argc, char **argv, t_psList **bloq_a)
 	{
 		x = -1;
 		aux = ft_split(argv[y], ' ');
-		while (aux[++x]) {
+		while (aux[++x])
+		{
 			nb = ft_atoi(aux[x]);
-			if (ps_lstFindContent(list, nb))
+			if (ps_lstFindContent(list, nb) || !nb && aux[x] == "0")
 				return (1);
 			ps_lstadd_back(&list, ps_lstnew((nb)));
 		}

@@ -44,7 +44,7 @@ static int checkLinealList(char *argv)
         }
         x++;
     }
-    if (f_symbol || f_space)
+    if (f_symbol || (f_space && argv[x]))
         return (1);
    return (0);
 }
