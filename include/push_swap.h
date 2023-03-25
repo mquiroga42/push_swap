@@ -27,8 +27,10 @@ typedef struct s_psList
 int			is_error(int argc, char **argv);
 t_psList	*ps_lstlast(t_psList *lst);
 t_psList	*ps_lstnew(int content);
+void		swap(t_psList **bloq, char *tag);
 int			ps_lstFindContent(t_psList *lst, int nb);
 void		ps_lstadd_back(t_psList **lst, t_psList *new);
+void		ps_lstcleaner(t_psList **lst);
 void		push_swap(t_list **bloq_a, t_list **bloq_b);
 
 #endif

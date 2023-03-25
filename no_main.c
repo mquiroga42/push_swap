@@ -32,7 +32,9 @@ static int	gen_bloq_list(int argc, char **argv, t_psList **bloq_a)
 			if (ps_lstFindContent(list, nb) || !nb && aux[x] == "0")
 				return (1);
 			ps_lstadd_back(&list, ps_lstnew((nb)));
+			free(aux[x]);
 		}
+		free(aux);
 		y++;
 	}
 	(*bloq_a) = list;
@@ -56,6 +58,8 @@ int	main(int argc, char **argv)
 	t_psList	*bloq_a;
 	t_psList	*bloq_b;
 
+	bloq_a = NULL;
+	bloq_b = NULL;
 	if (is_error(argc, argv))
 		return (write(2, "error\n", 6), 0);
 	else
@@ -63,6 +67,12 @@ int	main(int argc, char **argv)
 		if (gen_bloq_list(argc, argv, &bloq_a))
 			return (write(2, "error\n", 6), 0);
 		print_list(bloq_a);
+		printf("\nTEST:\n");
+		swap(&bloq_a, "sa\n");
+		print_list(bloq_a);
+
 	}
+	ps_lstcleaner(&bloq_a);
+	ps_lstcleaner(&bloq_b);
 	return (0);
 }

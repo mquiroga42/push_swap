@@ -12,6 +12,19 @@
 
 #include "../include/push_swap.h"
 
+void		swap(t_psList **bloq, char *tag)
+{
+	int 		aux;
+
+	if ((*bloq) && (*bloq)->next)
+	{
+		aux = (*bloq)->content;
+		(*bloq)->content = (*bloq)->next->content;
+		(*bloq)->next->content = aux;
+		ft_putstr_fd(tag, 1);
+	}
+}
+
 int	ps_lstFindContent(t_psList *lst, int nb)
 {
 	t_psList	*aux;
@@ -27,6 +40,27 @@ int	ps_lstFindContent(t_psList *lst, int nb)
 			break ;
 	}
 	return (0);
+}
+
+void	ps_lstcleaner(t_psList **lst)
+{
+	t_psList	*tmp;
+	t_psList	*aux;
+
+	tmp = (*lst);
+	if (!tmp)
+		return ;
+	while (tmp)
+	{
+		if (tmp->next) {
+			aux = tmp;
+			tmp = tmp->next;
+			free(aux);
+		}
+		else
+			break ;
+	}
+	free(tmp);
 }
 
 t_psList	*ps_lstlast(t_psList *lst)
