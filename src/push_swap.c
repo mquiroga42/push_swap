@@ -12,7 +12,7 @@
 
 #include "../include/push_swap.h"
 
-void	push_swap(t_list **bloq_a, t_list **bloq_b)
+void	push_swap(t_psList **bloq_a, t_psList **bloq_b)
 {
 
 }

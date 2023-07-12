@@ -1,0 +1,35 @@
+{
+
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "COMP",
+            "command": "clear && make",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            },
+            "detail": "Custom Debugger"
+        }
+    ]
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

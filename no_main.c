@@ -18,7 +18,7 @@ static int	gen_bloq_list(int argc, char **argv, t_psList **bloq_a)
 	char		**aux;
 	int			y;
 	int			x;
-	int 		nb;
+	int			nb;
 
 	list = NULL;
 	y = 1;
@@ -29,8 +29,8 @@ static int	gen_bloq_list(int argc, char **argv, t_psList **bloq_a)
 		while (aux[++x])
 		{
 			nb = ft_atoi(aux[x]);
-			if (ps_lstFindContent(list, nb) || !nb && aux[x] == "0")
-				return (1);
+			if (ps_lstFindContent(list, nb) || !nb && aux[x] != "0")
+				return (free(aux[x]), free(aux), 1);
 			ps_lstadd_back(&list, ps_lstnew((nb)));
 			free(aux[x]);
 		}
@@ -38,19 +38,21 @@ static int	gen_bloq_list(int argc, char **argv, t_psList **bloq_a)
 		y++;
 	}
 	(*bloq_a) = list;
-	return  (0);
+	return (0);
 }
 
-static void	print_list(t_psList *list)
+void	print_list(t_psList *list, char *msg)
 {
 	t_psList	*current;
 
+	printf("%s\n", msg);
 	current = list;
 	while (current != NULL)
 	{
 		printf("%d\n", current->content);
 		current = current->next;
 	}
+	printf("\n");
 }
 
 int	main(int argc, char **argv)
@@ -66,10 +68,18 @@ int	main(int argc, char **argv)
 	{
 		if (gen_bloq_list(argc, argv, &bloq_a))
 			return (write(2, "error\n", 6), 0);
-		print_list(bloq_a);
-		printf("\nTEST:\n");
-		swap(&bloq_a, "sa\n");
-		print_list(bloq_a);
+		print_list(bloq_a, "BLOQUE A");
+		print_list(bloq_b, "BLOQUE B");
+
+		printf("\n");
+		swap(&bloq_a, "test");
+		push(&bloq_a, &bloq_b, "test");
+		rotate(&bloq_a, "test");
+		reverse(&bloq_a, "test");
+
+		printf("\n--------------------\n");
+		print_list(bloq_a, "BLOQUE A");
+		print_list(bloq_b, "BLOQUE B");
 
 	}
 	ps_lstcleaner(&bloq_a);
