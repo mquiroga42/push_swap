@@ -48,7 +48,44 @@ static int checkLinealList(char *argv)
         return (1);
    return (0);
 }
+/*
+static int checkLinealList(char *argv)
+{
+    int x;
+    int f_symbol;
+    int f_space;
 
+    x = 0;
+    f_symbol = 0;
+    f_space = 0;
+    while (argv[x])
+    {
+        if (!ft_isdigit(argv[x]) && argv[x] != '-' && argv[x] != ' ')
+            return (1);
+        else if (argv[x] == '-')
+        {
+            if (f_symbol)
+                return (1);
+            f_symbol = 1;
+        }
+        else if (argv[x] == ' ')
+        {
+            if (f_space)
+                return (1);
+            f_space = 1;
+        }
+        else
+        {
+            f_symbol = 0;
+            f_space = 0;
+        }
+        x++;
+    }
+    if (f_symbol || (f_space && argv[x]))
+        return (1);
+   return (0);
+}
+*/
 static int checkMultilinealList(int argc, char **argv)
 {
     int y;

@@ -45,7 +45,8 @@ void		push(t_psList **nlist, t_psList **cache, char *tag)
 			(*cache) = tmp;
 			(*cache)->next = NULL;
 		}
-		
+		ft_putstr_fd(tag, 1);
+		ft_putstr_fd("\n", 1);
 	}
 }
 
@@ -59,6 +60,8 @@ void		rotate(t_psList **bloq, char *tag)
 		(*bloq) = (*bloq)->next;
 		aux->next = NULL;
 		ps_lstlast(*bloq)->next = aux;
+		ft_putstr_fd(tag, 1);
+		ft_putstr_fd("\n", 1);
 	}
 }
 

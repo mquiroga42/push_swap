@@ -50,6 +50,10 @@ OBJS:=$(patsubst $(SRC_DIR)%.c,$(SRC_DIR)%.o,$(SRCS))
 
 all: $(NAME)
 
+test: re
+#	@./push_swap 1 3 2
+	@./push_swap 1 2147483647 0 -2147483648 -5 3 10 2 18 4 -100
+
 $(NAME): libft $(OBJS)
 	@mv modules/libft/libft.a $(NAME)
 	@clear
